@@ -23,8 +23,6 @@ jobs:
         run: |
           cd u-boot-fslc
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
-          ls ../uboot-config
-          cp ../uboot-config ./.config
           make ARCH=arm CROSS_COMPILE=arm-none-eabi-
 
         
