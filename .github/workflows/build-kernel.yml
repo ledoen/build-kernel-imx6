@@ -1,0 +1,16 @@
+name: build kernel for imx6q
+run-name: $ is building kernel for imx6q 🚀
+on:
+  repository_dispatch:
+  workflow_dispatch:
+jobs:
+  build-uboot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@main
+        
+      - name: install tools
+        run: 
+          sudo apt update
+          sudo apt install make git gcc-arm-none-eabi gcc bison flex libssl-dev dpkg-dev lzop libncurses5-dev -y
