@@ -25,6 +25,6 @@ jobs:
           make distclean
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
           echo -e "$(nproc) thread compile"
-          make -j$(nproc) ARCH=arm CROSS_COMPILE=arm-none-eabi-
+          make ARCH=arm CROSS_COMPILE=arm-none-eabi-
 
         
