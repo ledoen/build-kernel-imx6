@@ -1,5 +1,5 @@
 name: build kernel for imx6q
-run-name: $ is building kernel for imx6q 🚀
+run-name: ${{ github.actor }} is building kernel for imx6q 🚀
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -14,3 +14,6 @@ jobs:
         run: |
           sudo apt update
           sudo apt install make git gcc-arm-none-eabi gcc bison flex libssl-dev dpkg-dev lzop libncurses5-dev -y
+
+      - name: clone uboot code
+        run: git clone -b 2023.07+fslc https://github.com/Freescale/u-boot-fslc.git
