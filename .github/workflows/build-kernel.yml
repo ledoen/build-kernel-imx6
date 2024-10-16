@@ -22,5 +22,6 @@ jobs:
           pwd
       - name: build
         run: |
+          ls
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
         
