@@ -17,6 +17,6 @@ jobs:
 
       - name: clone uboot code
         run: | 
-          git clone -b 2023.07+fslc https://github.com/Freescale/u-boot-fslc.git
+          git clone -b 2024.07+fslc https://github.com/Freescale/u-boot-fslc.git
           cd u-boot-fslc
           ls
