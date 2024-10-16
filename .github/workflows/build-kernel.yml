@@ -23,7 +23,7 @@ jobs:
         run: |
           cd u-boot-fslc
           make distclean
-          make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
+          make ARCH=arm CROSS_COMPILE=arm-none-eabi- stm32f429-evaluation_defconfig
           echo -e "$(nproc) thread compile"
           make ARCH=arm CROSS_COMPILE=arm-none-eabi-
 
