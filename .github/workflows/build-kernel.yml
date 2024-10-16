@@ -21,6 +21,7 @@ jobs:
 
       - name: build1
         run: |
+          cd u-boot-fslc
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
 
       - name: build2
