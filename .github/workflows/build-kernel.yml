@@ -19,4 +19,8 @@ jobs:
         run: | 
           git clone -b 2024.07+fslc https://github.com/Freescale/u-boot-fslc.git
           cd u-boot-fslc
-          ls
+      - name: build
+        run: |
+          make distclean
+          make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
+        
