@@ -21,7 +21,7 @@ jobs:
 
       - name: build
         run: |
-          ll uboot-config
+          ls uboot-config
           mv uboot-config u-boot-fslc/.config
           cd u-boot-fslc
           make ARCH=arm CROSS_COMPILE=arm-none-eabi-
