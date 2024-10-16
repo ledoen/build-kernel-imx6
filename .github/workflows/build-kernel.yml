@@ -22,6 +22,7 @@ jobs:
       - name: build1
         run: |
           cd u-boot-fslc
+          make distclean
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
 
       - run: cp -f .config u-boot-fslc/.config
