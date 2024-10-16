@@ -19,10 +19,14 @@ jobs:
         run: | 
           git clone -b 2024.07+fslc https://github.com/Freescale/u-boot-fslc.git
 
-      - name: build
+      - name: build1
         run: |
-          ls uboot-config
-          mv config.c u-boot-fslc/.config
+          make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
+
+      - name: build2
+        run: mv uboot-config u-boot-fslc/.config
+
+      - run: |
           cd u-boot-fslc
           make ARCH=arm CROSS_COMPILE=arm-none-eabi-
 
