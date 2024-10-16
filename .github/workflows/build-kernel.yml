@@ -22,7 +22,9 @@ jobs:
       - name: build
         run: |
           cd u-boot-fslc
-          pwd
-          ls
+          make distclean
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
+          echo -e "$(nproc) thread compile"
+          make -j$(nproc) ARCH=arm CROSS_COMPILE=arm-none-eabi-
+
         
