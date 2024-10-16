@@ -21,9 +21,11 @@ jobs:
 
       - name: build
         run: |
-          cp uboot-config u-boot-fslc/.config
           cd u-boot-fslc
-          echo -e "$(nproc) thread compile"
-          make ARCH=arm CROSS_COMPILE=arm-none-eabi-
+          export ARCH=arm CROSS_COMPILE=arm-none-eabi-
+          make mx6sabresd_defconfig
+          ls ../uboot-config
+          cp ../uboot-config ./.config
+          make
 
         
