@@ -86,5 +86,3 @@ jobs:
             linux-fslc/arm/boot/zImage
             linux-fslc/arm/boot/uImage
             linux-fslc/arch/arm/boot/dts/*.dts
-      - name: clean
-        run: make clean
