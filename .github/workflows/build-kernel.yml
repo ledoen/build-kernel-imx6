@@ -64,7 +64,7 @@ jobs:
 
       - name: build uImage
         run: |
-          cp u-boot-fslc/tools/mkimage /usr/bin
+          sudo cp u-boot-fslc/tools/mkimage /usr/bin
           cd linux-fslc
           make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- uImage ADDR=0x80008000
 
@@ -73,3 +73,18 @@ jobs:
           cd linux-fslc
           ls -l arch/arm/boot/
             
+      - name: Release
+        uses: softprops/action-gh-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with: 
+          tag_name: prebuild_driver
+          body: imx6q's uboot and kernel
+          files: |
+            u-boot-fslc/u-boot-dtb.imx
+            u-boot-fslc/u-boot.bin
+            linux-fslc/arm/boot/zImage
+            linux-fslc/arm/boot/uImage
+            linux-fslc/arch/arm/boot/dts/*.dts
+      - name: clean
+        run: make clean
