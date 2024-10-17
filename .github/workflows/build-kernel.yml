@@ -64,6 +64,6 @@ jobs:
 
       - name: display kernel size
         run: |
-          cd linuc-fslc
+          cd linux-fslc
           ls -l arch/arm/boot/
             
