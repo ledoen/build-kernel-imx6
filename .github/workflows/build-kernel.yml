@@ -28,8 +28,7 @@ jobs:
           sudo apt install make git gcc-arm-none-eabi gcc bison flex libssl-dev dpkg-dev lzop libncurses5-dev -y
 
       - name: clone uboot code
-        run: | 
-          git clone -b ${UBOOT_BRANCH} https://github.com/Freescale/u-boot-fslc.git
+        run:  git clone -b ${UBOOT_BRANCH} https://github.com/Freescale/u-boot-fslc.git
 
       - name: uboot defconfig
         run: |
