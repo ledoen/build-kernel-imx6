@@ -5,11 +5,11 @@ on:
   workflow_dispatch:
 
 env:
-  UBOOT_BRANCH: 2022.10+fslc
-  custom-uboot-configfile-path: imx6q/uboot.config
-  kernel-branch: 6.6-2.1.x-imx
-  custom-kernel-dtsfile-path: imx6q/imx6qdl-sabredsd.dtsi
-  des-kernel-dtsfile-path: linux-fslc/arch/arm/boot/dts/nxp/imx/imx6qdl-sabredsd.dtsi
+  UBOOT-BRANCH: 2022.10+fslc
+  CUSTOM-UBOOT-CONFIGFILE-PATH: imx6q/uboot.config
+  KERNEL-BRANCH: 6.6-2.1.x-imx
+  CUSTOM-DTSFILE-PATH: imx6q/imx6qdl-sabredsd.dtsi
+  DES-DTSFILE-PATH: linux-fslc/arch/arm/boot/dts/nxp/imx/imx6qdl-sabredsd.dtsi
 
 jobs:
   build-uboot:
@@ -17,11 +17,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@main
-
-      - name: clone uboot code
-        run: | 
-          echo ${UBOOT_BRANCH}
-          git clone -b ${UBOOT_BRANCH} https://github.com/Freescale/u-boot-fslc.git
           
       - name: install tools
         run: |
@@ -32,7 +27,9 @@ jobs:
           sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
           sudo apt install make git gcc-arm-none-eabi gcc bison flex libssl-dev dpkg-dev lzop libncurses5-dev -y
 
-
+      - name: clone uboot code
+        run: | 
+          git clone -b ${UBOOT_BRANCH} https://github.com/Freescale/u-boot-fslc.git
 
       - name: uboot defconfig
         run: |
@@ -41,7 +38,7 @@ jobs:
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
 
       - name: load custom config
-        run: cp ${custom-uboot-configfile-path} u-boot-fslc/.config
+        run: cp ${CUSTOM-UBOOT-CONFIGFILE-PATH} u-boot-fslc/.config
       
       - name: build uboot
         run: |
@@ -60,10 +57,10 @@ jobs:
         run: pwd
         
       - name: clone kernel code
-        run: git clone -b ${kernel-branch} https://github.com/Freescale/linux-fslc.git
+        run: git clone -b ${KERNEL-BRANCH} https://github.com/Freescale/linux-fslc.git
 
       - name: load custom dts file
-        run: cp ${custom-kernel-dtsfile-path} ${des-kernel-dtsfile-path}
+        run: cp ${CUSTOM-DTSFILE-PATH} ${DES-DTSFILE-PATH}
 
       - name: defconfig
         run: |
@@ -94,7 +91,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           tag_name: prebuild_driver
-          body: imx6q's image of uboot(branch${uboot-branch}) and kernel(branch ${kernel-branch})
+          body: imx6q's image of uboot(branch${UBOOT-BRANCH}) and kernel(branch ${KERNEL-BRANCH})
           files: |
             u-boot-fslc/u-boot-dtb.imx
             u-boot-fslc/u-boot.bin
