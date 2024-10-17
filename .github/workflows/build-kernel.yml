@@ -34,5 +34,7 @@ jobs:
       - run: |
           cd u-boot-fslc
           make ARCH=arm CROSS_COMPILE=arm-none-eabi-
+      - name: display uboot size
+        run: ls -l u-boot*
 
         
