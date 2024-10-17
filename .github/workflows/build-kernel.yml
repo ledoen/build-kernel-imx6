@@ -20,7 +20,7 @@ jobs:
 
       - name: clone uboot code
         run: | 
-          git clone -b $uboot-branch https://github.com/Freescale/u-boot-fslc.git
+          git clone -b 2022.10+fslc https://github.com/Freescale/u-boot-fslc.git
           
       - name: install tools
         run: |
