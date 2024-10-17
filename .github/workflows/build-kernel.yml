@@ -29,7 +29,7 @@ jobs:
 
       - name: clone uboot code
         run: | 
-          git clone -b ${uboot-branch} https://github.com/Freescale/u-boot-fslc.git
+          git clone -b env.uboot-branch https://github.com/Freescale/u-boot-fslc.git
 
       - name: uboot defconfig
         run: |
