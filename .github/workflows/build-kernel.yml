@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  uboot-branch: 2022.10+fslc
+  UBOOT_BRANCH: 2022.10+fslc
   custom-uboot-configfile-path: imx6q/uboot.config
   kernel-branch: 6.6-2.1.x-imx
   custom-kernel-dtsfile-path: imx6q/imx6qdl-sabredsd.dtsi
@@ -20,7 +20,7 @@ jobs:
 
       - name: clone uboot code
         run: | 
-          echo ${uboot-branch}
+          echo ${UBOOT_BRANCH}
           git clone -b ${uboot-branch} https://github.com/Freescale/u-boot-fslc.git
           
       - name: install tools
