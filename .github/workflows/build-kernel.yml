@@ -72,6 +72,7 @@ jobs:
         run: |
           cd linux-fslc
           ls -l arch/arm/boot/
+          ls -l arch/arm/boot/dts/
             
       - name: Release
         uses: softprops/action-gh-release@master
