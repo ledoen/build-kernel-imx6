@@ -3,6 +3,14 @@ run-name: ${{ github.actor }} is building kernel for imx6q 🚀
 on:
   repository_dispatch:
   workflow_dispatch:
+
+env:
+  uboot-branch: 2022.10+fslc
+  custom-uboot-configfile-path: imx6q/uboot.config
+  kernel-branch: 6.6-2.1.x-imx
+  custom-kernel-dtsfile-path: imx6q/imx6qdl-sabredsd.dtsi
+  des-kernel-dtsfile-path: linux-fslc/arch/arm/boot/dts/nxp/imx/imx6qdl-sabredsd.dtsi
+
 jobs:
   build-uboot:
     runs-on: ubuntu-latest
@@ -21,7 +29,7 @@ jobs:
 
       - name: clone uboot code
         run: | 
-          git clone -b 2022.10+fslc https://github.com/Freescale/u-boot-fslc.git
+          git clone -b ${uboot-branch} https://github.com/Freescale/u-boot-fslc.git
 
       - name: uboot defconfig
         run: |
@@ -30,7 +38,7 @@ jobs:
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- mx6sabresd_defconfig
 
       - name: load custom config
-        run: cp config2210 u-boot-fslc/.config
+        run: cp ${custom-uboot-configfile-path} u-boot-fslc/.config
       
       - name: build uboot
         run: |
@@ -49,7 +57,10 @@ jobs:
         run: pwd
         
       - name: clone kernel code
-        run: git clone -b 6.6-2.1.x-imx https://github.com/Freescale/linux-fslc.git
+        run: git clone -b ${kernel-branch} https://github.com/Freescale/linux-fslc.git
+
+      - name: load custom dts file
+        run: cp ${custom-kernel-dtsfile-path} ${des-kernel-dtsfile-path}
 
       - name: defconfig
         run: |
