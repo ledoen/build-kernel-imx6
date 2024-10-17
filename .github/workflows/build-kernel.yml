@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   build-uboot:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@main
@@ -61,6 +61,12 @@ jobs:
         run: |
           cd linux-fslc
           make -j$(nproc) ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+
+      - name: build uImage
+        run: |
+          cp u-boot-fslc/tools/mkimage /usr/bin
+          cd linux-fslc
+          make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- uImage ADDR=0x80008000
 
       - name: display kernel size
         run: |
