@@ -35,7 +35,7 @@ jobs:
       - name: build uboot
         run: |
           cd u-boot-fslc
-          make -j{nproc} ARCH=arm CROSS_COMPILE=arm-none-eabi-
+          make -j${nproc} ARCH=arm CROSS_COMPILE=arm-none-eabi-
           
       - name: display uboot size
         run: |
@@ -60,7 +60,7 @@ jobs:
       - name: build kernel
         run: |
           cd linux-fslc
-          make -j{nproc} ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+          make -j${nproc} ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
 
       - name: display kernel size
         run: |
