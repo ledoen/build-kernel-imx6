@@ -21,7 +21,7 @@ jobs:
       - name: clone uboot code
         run: | 
           echo ${UBOOT_BRANCH}
-          git clone -b ${uboot-branch} https://github.com/Freescale/u-boot-fslc.git
+          git clone -b ${UBOOT_BRANCH} https://github.com/Freescale/u-boot-fslc.git
           
       - name: install tools
         run: |
