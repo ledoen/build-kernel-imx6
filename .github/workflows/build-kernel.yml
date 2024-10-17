@@ -83,7 +83,7 @@ jobs:
         run: |
           cd linux-fslc
           ls -l arch/arm/boot/
-          ls -l arch/arm/boot/dts/
+          ls -l arch/arm/boot/dts/nxp
             
       - name: Release
         uses: softprops/action-gh-release@master
@@ -91,7 +91,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           tag_name: prebuild_driver
-          body: imx6q's uboot and kernel
+          body: imx6q's image of uboot(branch${uboot-branch}) and kernel(branch ${kernel-branch})
           files: |
             u-boot-fslc/u-boot-dtb.imx
             u-boot-fslc/u-boot.bin
