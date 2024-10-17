@@ -17,7 +17,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@main
-        
+
+      - name: clone uboot code
+        run: | 
+          git clone -b $uboot-branch https://github.com/Freescale/u-boot-fslc.git
+          
       - name: install tools
         run: |
           docker rmi `docker images -q`
@@ -27,9 +31,7 @@ jobs:
           sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
           sudo apt install make git gcc-arm-none-eabi gcc bison flex libssl-dev dpkg-dev lzop libncurses5-dev -y
 
-      - name: clone uboot code
-        run: | 
-          git clone -b env.uboot-branch https://github.com/Freescale/u-boot-fslc.git
+
 
       - name: uboot defconfig
         run: |
