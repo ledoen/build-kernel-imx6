@@ -83,6 +83,5 @@ jobs:
           files: |
             u-boot-fslc/u-boot-dtb.imx
             u-boot-fslc/u-boot.bin
-            linux-fslc/arm/boot/zImage
-            linux-fslc/arm/boot/uImage
-            linux-fslc/arch/arm/boot/dts/*.dts
+            linux-fslc/arch/arm/boot/zImage
+            linux-fslc/arch/arm/boot/uImage
