@@ -84,6 +84,7 @@ jobs:
           ls -l arch/arm/boot/
           ls -l arch/arm/boot/dts/
           ls -l arch/arm/boot/dts/nxp
+          ls -l arch/arm/boot/dts/nxp/imx
             
       - name: Release
         uses: softprops/action-gh-release@master
