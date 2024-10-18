@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 
 env:
+  TARGET_DEVICE: imx6ul
   UBOOT_BRANCH: 2022.10+fslc
   UBOOT_DEFCONFIG: mx6ul_14x14_evk_defconfig
   CUSTOM_UBOOT_CONFIGFILE_PATH: imx6ul/uboot.config
@@ -96,7 +97,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
-          tag_name: prebuild_driver
+          tag_name: prebuild_driver_${TARGET_DEVICE}
           body: imx6ul's image of uboot - branch ${UBOOT_BRANCH} and kernel -branch ${KERNEL_BRANCH}
           files: |
             u-boot-fslc/u-boot-dtb.imx
