@@ -98,7 +98,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           tag_name: prebuild_driver_${{TARGET_DEVICE}}
-          body: imx6ul's image of uboot - branch ${{UBOOT_BRANCH}} and kernel -branch ${{KERNEL_BRANCH}}
+          body: imx6ul's image of uboot - branch ${{env.UBOOT_BRANCH}} and kernel -branch ${{env.KERNEL_BRANCH}}
           files: |
             u-boot-fslc/u-boot-dtb.imx
             u-boot-fslc/u-boot.bin
