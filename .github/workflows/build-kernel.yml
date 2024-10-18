@@ -8,7 +8,7 @@ env:
   UBOOT_BRANCH: 2022.10+fslc
   CUSTOM_UBOOT_CONFIGFILE_PATH: imx6q/uboot.config
   KERNEL_BRANCH: 6.6-2.1.x-imx
-  CUSTOM_DTSFILE_PATH: imx6q/imx6qdl-sabredsd.dtsi
+  CUSTOM_DTSFILE_PATH: imx6q/imx6qdl-sabresd.dtsi
   DES_DTSFILE_PATH: linux-fslc/arch/arm/boot/dts/nxp/imx/imx6qdl-sabredsd.dtsi
 
 jobs:
