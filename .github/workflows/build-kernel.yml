@@ -82,6 +82,7 @@ jobs:
         run: |
           cd linux-fslc
           ls -l arch/arm/boot/
+          ls -l arch/arm/boot/dts/
           ls -l arch/arm/boot/dts/nxp
             
       - name: Release
