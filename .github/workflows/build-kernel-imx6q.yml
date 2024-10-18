@@ -43,17 +43,9 @@ jobs:
         run: |
           cd u-boot-fslc
           make -j$(nproc) ARCH=arm CROSS_COMPILE=arm-none-eabi-
-          
-      - name: display uboot size
-        run: |
-          cd u-boot-fslc
-          ls -l u-boot*
 
       - name: install tools for building kernel
         run: sudo apt install make gcc-arm-linux-gnueabihf gcc bison flex libssl-dev dpkg-dev lzop vim -y
-
-      - name: show current directory
-        run: pwd
         
       - name: clone kernel code
         run: git clone -b ${KERNEL_BRANCH} https://github.com/Freescale/linux-fslc.git
@@ -77,14 +69,6 @@ jobs:
           sudo cp u-boot-fslc/tools/mkimage /usr/bin
           cd linux-fslc
           make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- uImage LOADADDR=0x80008000
-
-      - name: display kernel size
-        run: |
-          cd linux-fslc
-          ls -l arch/arm/boot/
-          ls -l arch/arm/boot/dts/
-          ls -l arch/arm/boot/dts/nxp
-          ls -l arch/arm/boot/dts/nxp/imx
             
       - name: Release
         uses: softprops/action-gh-release@master
