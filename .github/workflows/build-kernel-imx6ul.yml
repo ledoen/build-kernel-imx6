@@ -1,0 +1,107 @@
+name: build kernel for imx6ul
+run-name: ${{ github.actor }} is building kernel for imx6ul 🚀
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+env:
+  UBOOT_BRANCH: 2022.10+fslc
+  UBOOT_DEFCONFIG: mx6ul_14x14_evk_defconfig
+  CUSTOM_UBOOT_CONFIGFILE_PATH: imx6ul/uboot.config
+  KERNEL_BRANCH: 6.6-2.1.x-imx
+  CUSTOM_DTSFILE1_PATH: imx6ul/imx6ul-14x14-evk.dtsi
+  DES_DTSFILE1_PATH: linux-fslc/arch/arm/boot/dts/nxp/imx/imx6ul-14x14-evk.dtsi
+  CUSTOM_DTSFILE2_PATH: imx6ul/imx6ul.dtsi
+  DES_DTSFILE2_PATH: linux-fslc/arch/arm/boot/dts/nxp/imx/imx6ul.dtsi
+
+jobs:
+  build-uboot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@main
+          
+      - name: install tools
+        run: |
+          docker rmi `docker images -q`
+          [[ -n "${AGENT_TOOLSDIRECTORY}" ]] && sudo rm -rf "${AGENT_TOOLSDIRECTORY}"
+          sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android 2>/dev/null
+          sudo -E apt-get -y update
+          sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
+          sudo apt install make git gcc-arm-none-eabi gcc bison flex libssl-dev dpkg-dev lzop libncurses5-dev -y
+
+      - name: clone uboot code
+        run:  git clone -b ${UBOOT_BRANCH} https://github.com/Freescale/u-boot-fslc.git
+
+      - name: uboot defconfig
+        run: |
+          cd u-boot-fslc
+          make distclean
+          make ARCH=arm CROSS_COMPILE=arm-none-eabi- ${UBOOT_DEFCONFIG}
+
+      - name: load custom config
+        run: cp ${CUSTOM_UBOOT_CONFIGFILE_PATH} u-boot-fslc/.config
+      
+      - name: build uboot
+        run: |
+          cd u-boot-fslc
+          make -j$(nproc) ARCH=arm CROSS_COMPILE=arm-none-eabi-
+          
+      - name: display uboot size
+        run: |
+          cd u-boot-fslc
+          ls -l u-boot*
+
+      - name: install tools for building kernel
+        run: sudo apt install make gcc-arm-linux-gnueabihf gcc bison flex libssl-dev dpkg-dev lzop vim -y
+
+      - name: show current directory
+        run: pwd
+        
+      - name: clone kernel code
+        run: git clone -b ${KERNEL_BRANCH} https://github.com/Freescale/linux-fslc.git
+
+      - name: load custom dts file
+        run: |
+          cp ${CUSTOM_DTSFILE1_PATH} ${DES_DTSFILE1_PATH}
+          cp ${CUSTOM_DTSFILE2_PATH} ${DES_DTSFILE2_PATH}
+
+      - name: defconfig
+        run: |
+          cd linux-fslc
+          make distclean
+          make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- imx_v7_defconfig
+          
+      - name: build kernel
+        run: |
+          cd linux-fslc
+          make -j$(nproc) ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+
+      - name: build uImage
+        run: |
+          sudo cp u-boot-fslc/tools/mkimage /usr/bin
+          cd linux-fslc
+          make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- uImage LOADADDR=0x10008000
+
+      - name: display kernel size
+        run: |
+          cd linux-fslc
+          ls -l arch/arm/boot/
+          ls -l arch/arm/boot/dts/
+          ls -l arch/arm/boot/dts/nxp
+          ls -l arch/arm/boot/dts/nxp/imx
+            
+      - name: Release
+        uses: softprops/action-gh-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with: 
+          tag_name: prebuild_driver
+          body: imx6ul's image of uboot - branch ${UBOOT_BRANCH} and kernel -branch ${KERNEL_BRANCH}
+          files: |
+            u-boot-fslc/u-boot-dtb.imx
+            u-boot-fslc/u-boot.bin
+            linux-fslc/arch/arm/boot/zImage
+            linux-fslc/arch/arm/boot/uImage
+            linux-fslc/arch/arm/boot/dts/nxp/imx/imx6ul-14x14-evk-emmc.dtb
+            linux-fslc/arch/arm/boot/dts/nxp/imx/imx6ul-14x14-evk.dtb
