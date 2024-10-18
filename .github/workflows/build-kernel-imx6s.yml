@@ -37,7 +37,7 @@ jobs:
       - name: build uboot
         run: |
           cd u-boot-fslc
-          make -j$(nproc) ARCH=arm CROSS_COMPILE=arm-none-eabi-
+          make -j$(nproc) ARCH=arm CROSS_COMPILE=arm-none-eabi- u-boot.imx
 
       - name: install tools for building kernel
         run: sudo apt install make gcc-arm-linux-gnueabihf gcc bison flex libssl-dev dpkg-dev lzop vim -y
@@ -70,7 +70,7 @@ jobs:
           tag_name: prebuild_driver_imx6s
           body: imx6s's image of uboot and kernel
           files: |
-            u-boot-fslc/u-boot-dtb.imx
+            u-boot-fslc/u-boot.imx
             u-boot-fslc/u-boot.bin
             linux-fslc/arch/arm/boot/zImage
             linux-fslc/arch/arm/boot/uImage
