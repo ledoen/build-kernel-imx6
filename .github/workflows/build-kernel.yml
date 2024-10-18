@@ -98,3 +98,4 @@ jobs:
             u-boot-fslc/u-boot.bin
             linux-fslc/arch/arm/boot/zImage
             linux-fslc/arch/arm/boot/uImage
+            linux-fslc/arch/arm/boot/dts/nxp/imx/imx6q-sabresd.dtb
