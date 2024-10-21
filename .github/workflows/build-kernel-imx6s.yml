@@ -7,6 +7,7 @@ on:
 env:
   UBOOT_BRANCH: 2022.10+fslc
   UBOOT_DEFCONFIG: riotboard_defconfig
+  CUSTOM_UBOOT_CONFIGFILE_PATH: imx6s/uboot.config
   KERNEL_BRANCH: 6.6-2.1.x-imx
 
 jobs:
@@ -33,6 +34,9 @@ jobs:
           cd u-boot-fslc
           make distclean
           make ARCH=arm CROSS_COMPILE=arm-none-eabi- ${UBOOT_DEFCONFIG}
+
+      - name: load custom config
+        run: cp ${CUSTOM_UBOOT_CONFIGFILE_PATH} u-boot-fslc/.config
       
       - name: build uboot
         run: |
