@@ -60,7 +60,7 @@ jobs:
         run: |
           sudo cp u-boot-fslc/tools/mkimage /usr/bin
           cd linux-fslc
-          make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- uImage LOADADDR=0x80008000
+          make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- uImage LOADADDR=0x10008000
             
       - name: Release
         uses: softprops/action-gh-release@master
