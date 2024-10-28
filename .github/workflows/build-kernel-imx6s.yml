@@ -9,6 +9,8 @@ env:
   UBOOT_DEFCONFIG: riotboard_defconfig
   CUSTOM_UBOOT_CONFIGFILE_PATH: imx6s/uboot.config
   KERNEL_BRANCH: 6.6-2.1.x-imx
+  CUSTOM_DTSFILE1_PATH: imx6s/imx6dl-riotboard.dts
+  DES_DTSFILE1_PATH: linux-fslc/arch/arm/boot/dts/nxp/imx/imx6dl-riotboard.dts
 
 jobs:
   build-uboot:
@@ -48,6 +50,10 @@ jobs:
         
       - name: clone kernel code
         run: git clone -b ${KERNEL_BRANCH} https://github.com/Freescale/linux-fslc.git
+
+      - name: load custom dts file
+        run: |
+          cp ${CUSTOM_DTSFILE1_PATH} ${DES_DTSFILE1_PATH}
 
       - name: defconfig
         run: |
