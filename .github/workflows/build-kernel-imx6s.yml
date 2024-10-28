@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  UBOOT_BRANCH: 2022.10+fslc
+  UBOOT_BRANCH: 2023.04+fslc
   UBOOT_DEFCONFIG: riotboard_defconfig
   CUSTOM_UBOOT_CONFIGFILE_PATH: imx6s/uboot.config
   KERNEL_BRANCH: 6.6-2.1.x-imx
