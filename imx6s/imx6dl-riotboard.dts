@@ -11,6 +11,10 @@
 	model = "RIoTboard i.MX6S";
 	compatible = "riot,imx6s-riotboard", "fsl,imx6dl";
 
+	cpus {
+		/delete-node/ cpu@1;
+	};
+	
 	memory@10000000 {
 		device_type = "memory";
 		reg = <0x10000000 0x40000000>;
